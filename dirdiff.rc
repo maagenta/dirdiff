@@ -1,0 +1,43 @@
+// DirDiff dialog template.
+//
+// Windows: compiled by rc.exe (the file is UTF-8, see #pragma code_page).
+// macOS/Linux: converted to dirdiff.rc_mac_dlg with WDL/swell/swell_resgen.pl
+//              and compiled inside main.cpp (see the end of that file).
+//
+// Coordinates are in dialog units (DLU). SWELL scales them x1.9 on Linux
+// and x1.7 (user-adjustable) on macOS.
+
+#include "resource.h"
+
+#ifdef _WIN32
+#include <windows.h>
+#include <commctrl.h>
+#pragma code_page(65001)
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+
+// manifest: Common Controls 6, per-monitor DPI, long paths
+// (with MSVC it is linked with /MANIFEST:NO to avoid duplicating it)
+CREATEPROCESS_MANIFEST_RESOURCE_ID RT_MANIFEST "dirdiff.manifest"
+#endif
+
+IDD_MAIN DIALOGEX 0, 0, 560, 328
+STYLE DS_SETFONT | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_CLIPCHILDREN
+CAPTION "Directory Comparer"
+FONT 9, "Segoe UI", 400, 0, 0x1
+BEGIN
+    LTEXT           "A:",IDC_LBL_A,7,10,10,8
+    EDITTEXT        IDC_PATH_A,19,7,232,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "...",IDC_BROWSE_A,254,7,23,14
+    LTEXT           "B:",IDC_LBL_B,283,10,10,8
+    EDITTEXT        IDC_PATH_B,295,7,232,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "...",IDC_BROWSE_B,530,7,23,14
+    LTEXT           "Compare by:",IDC_LBL_METHOD,7,28,46,8
+    COMBOBOX        IDC_METHOD,55,26,110,60,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "Hide identical",IDC_HIDESAME,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,176,27,70,10
+    CONTROL         "Show files",IDC_SHOWFILES,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,252,27,70,10
+    RTEXT           "",IDC_TOTALS,326,28,163,8,SS_NOPREFIX
+    DEFPUSHBUTTON   "Compare",IDC_COMPARE,493,25,60,15
+    CONTROL         "",IDC_TREE_A,"SysTreeView32",TVS_HASBUTTONS | TVS_LINESATROOT | TVS_SHOWSELALWAYS | TVS_FULLROWSELECT | TVS_DISABLEDRAGDROP | WS_BORDER | WS_TABSTOP,7,45,270,263
+    CONTROL         "",IDC_TREE_B,"SysTreeView32",TVS_HASBUTTONS | TVS_LINESATROOT | TVS_SHOWSELALWAYS | TVS_FULLROWSELECT | TVS_DISABLEDRAGDROP | WS_BORDER | WS_TABSTOP,283,45,270,263
+    LTEXT           "",IDC_STATUS,7,314,546,9,SS_NOPREFIX | SS_ENDELLIPSIS
+END
