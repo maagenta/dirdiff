@@ -20,6 +20,10 @@
 extern const char **g_argv; // main.cpp
 extern int g_argc;
 
+// SWELL's look switch (swell-wnd.mm): &1 = rounded Aqua buttons / popups,
+// &2 = Big Sur style lists. 0 gives the old square REAPER-style controls.
+extern int g_swell_osx_style;
+
 /* ----------------------------------------------------------------------- */
 /* Synchronized scrolling                                                   */
 /* ----------------------------------------------------------------------- */
@@ -109,6 +113,7 @@ int main(int argc, const char *argv[])
 {
   g_argc = argc;
   g_argv = argv;
+  g_swell_osx_style = 1 | 2;
 
   NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 
